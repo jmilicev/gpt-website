@@ -6,10 +6,16 @@ import './home.css';
 export default function Home() {
     const [inputValue, setInputValue] = useState('');
     const [outputText, setOutputText] = useState('');
+
+    var [chatlog, setChatLog] = useState('');
   
     const handleInputChange = (event) => {
       setInputValue(event.target.value);
     };
+
+    function clearChatLogs(){
+        setChatLog("");
+    }
 
     const saveStringToFile = () => {
 
@@ -82,7 +88,8 @@ export default function Home() {
             sendButton.style.backgroundColor = "gray";
             sendButton.disabled = true;
             sendButton.style.cursor = 'not-allowed';
-
+            
+            setChatLog(chatlog+= "\n\nME: "+inputValue+"\n\n")
 
             const maxTokensInput = document.querySelector('.tokens-input');
             const temperatureSlider = document.querySelector('.range-input');
@@ -90,16 +97,25 @@ export default function Home() {
             const maxTokens = parseInt(maxTokensInput.value);
             const apiKey = apiKeyInput.value;
             const temperature = parseFloat(temperatureSlider.value);
-            
+            console.log("top"+chatlog);
+
             call(inputValue, temperature, maxTokens, 'gpt-3.5-turbo','s', apiKey, onDataCallback, onEndCallback);
             
+            
+            
             var response = "";
+            var clog = chatlog + "GPT: ";
+            var chunkCharLength;
             function onDataCallback(output) {
                 response+=output;
+                clog+=output;
                 setOutputText(response);
+                setChatLog(clog + output);
             }
         
             function onEndCallback() {
+               //setChatLog(chatlog+"\n\n");
+
                 //restore send button
                 const sendButton = document.querySelector('.send-button');
                 sendButton.style.backgroundColor = "#007bff";
@@ -121,7 +137,7 @@ export default function Home() {
         <div className="settings-section">
           <div className="settings-container">
             <div className="settings-row">
-              <label>Temperature</label>
+              <label>Creativity</label>
               <input type="range" min="0" max="1" step="0.05" className="range-input" />
             </div>
             <div className="settings-row">
@@ -133,7 +149,8 @@ export default function Home() {
                     event.preventDefault();
                     }
                 }}
-                type="text" className="tokens-input" />
+                type="text" 
+                className="tokens-input" />
             </div>
             <div className="settings-row">
               <label>OpenAI Key</label>
@@ -177,16 +194,29 @@ export default function Home() {
               <br></br>
               <div className="button-group">
                 <button onClick={saveStringToFile} className="save-button">Save</button>
+                <button onClick={clearChatLogs} className="clear-logs-button">Clear Logs</button>
                 <button onClick={copyToClipboard} className="copy-button">Copy</button>
+                
               </div>
             </section>
           </div>
+        </div>
+
+        <div className='chatlogcontainer'>
+            <h2>Chat</h2>
+        <textarea
+            readOnly
+            className="chatlog"
+            value={chatlog}
+            placeholder="chatlog..."
+        ></textarea>
+
         </div>
   
         <footer className="footer">
           <p className="footer-text">Designed and developed by Jovan Milicev</p>
           <div className="social-icons">
-            <a href="https://jovanmilicev.com/" target="_blank" rel="noopener noreferrer">
+            <a href="http://in.jovanmilicev.com/" target="_blank" rel="noopener noreferrer">
               <img src="/linkedin.svg" alt="Website" width={24} height={24} />
             </a>
             <a href="https://github.com/jmilicev" target="_blank" rel="noopener noreferrer">
