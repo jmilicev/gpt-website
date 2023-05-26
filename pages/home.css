@@ -1,0 +1,11 @@
+.output-field, .inputfield {
+    width: 50%;
+    height: 200px; /* Adjust the height as needed */
+    resize: vertical; /* Allow vertical resizing */
+    opacity: 0.8; /* Adjust the opacity to visually indicate it's disabled */
+  }
+
+  .output-field{
+    cursor: not-allowed; /* Display a "not-allowed" cursor */
+    pointer-events: none; /* Disable pointer events */
+  }
