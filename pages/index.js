@@ -1,17 +1,39 @@
+import React, { useState } from 'react';
 import Image from 'next/image';
 
 export default function Home() {
+  const [inputValue, setInputValue] = useState('');
+  const [outputText, setOutputText] = useState('');
+
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleSendClick = () => {
+    setOutputText(inputValue);
+  };
+
   return (
-<main className="flex flex-col items-center justify-between p-24 bg-white">
-      <h1 className="text-4xl font-bold mb-8 text-center text-black my-0 border-b-2 border-gray-200">QuerusGPT</h1>
+    <main className="flex flex-col items-center justify-between p-24 bg-white">
+      <h1 className="text-4xl font-bold mb-8 text-center text-black my-0 pt-12 border-b-2 border-gray-200">QuerusGPT</h1>
 
       <div className="flex w-full justify-between">
         <div className="w-1/2 pr-4">
           <h2 className="text-2xl font-bold mb-4 text-black">Input</h2>
           <section className="mb-8">
-            <div className="flex items-center flex-col mb-4"> {/* Centering content vertically */}
-              <textarea className="w-full h-32 px-4 py-2 border border-gray-300 rounded bg-white text-black" placeholder="Enter your text" />
-              <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Send</button> {/* Added margin-top for spacing */}
+            <div className="flex items-center flex-col mb-4">
+              <textarea
+                className="w-full h-32 px-4 py-2 border border-gray-300 rounded bg-white text-black"
+                placeholder="Enter your text"
+                value={inputValue}
+                onChange={handleInputChange}
+              />
+              <button
+                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                onClick={handleSendClick}
+              >
+                Send
+              </button>
             </div>
           </section>
 
@@ -19,10 +41,10 @@ export default function Home() {
             <h2 className="text-2xl font-bold mb-4 text-black">Output</h2>
 
             <div className="w-full h-48 bg-gray-100 border border-gray-300 rounded p-4 overflow-y-auto">
-              {/* Output text will be displayed here */}
+              {outputText}
             </div>
 
-            <div className="flex justify-center mt-4"> {/* Centering the buttons */}
+            <div className="flex justify-center mt-4">
               <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 mx-2">Save</button>
               <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 mx-2">Copy</button>
             </div>
@@ -49,7 +71,7 @@ export default function Home() {
         </section>
       </div>
 
-      <br></br>
+      <br />
       {/* Footer */}
       <footer className="w-full py-4 bg-gray-200 text-gray-600 text-center">
         <p className="text-sm">Designed and developed by Jovan Milicev</p>
