@@ -126,7 +126,14 @@ export default function Home() {
             </div>
             <div className="settings-row">
               <label>Max Tokens</label>
-              <input type="text" className="tokens-input" />
+              <input pattern="[0-9]*"
+                onKeyPress={(event) => {
+                    const charCode = event.which ? event.which : event.keyCode;
+                    if (charCode !== 8 && charCode !== 0 && charCode < 48 || charCode > 57) {
+                    event.preventDefault();
+                    }
+                }}
+                type="text" className="tokens-input" />
             </div>
             <div className="settings-row">
               <label>OpenAI Key</label>
