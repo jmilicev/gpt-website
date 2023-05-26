@@ -1,3 +1,4 @@
+
 const https = require('https');
 const path = require('path');
 
@@ -11,14 +12,15 @@ function callAPI(input, temperature, maxTokens, modelType, PARAMETERS, apiKey, o
   //check parameters
 
   var abort = false;
+  var errorlog =""
   if(input == ""){
-    console.log("ERROR: cannot have empty message")
+    errorlog += ("ERROR: cannot have empty message\n")
     abort = true;
   }if(temperature>1 || temperature<0){
-    console.log("ERROR: temperature must be between 0 and 1 inclusive");
+    errorlog += ("ERROR: temperature must be between 0 and 1 inclusive\n");
     abort = true;
   }if(maxTokens<1){
-    console.log("ERROR: max tokens cannot be 0 or negative");
+    errorlog += ("ERROR: max tokens cannot be 0 or negative\n");
     abort = true;
   }
 
@@ -33,8 +35,8 @@ function callAPI(input, temperature, maxTokens, modelType, PARAMETERS, apiKey, o
   ];
 
   if(!options.includes(modelType)){
-    console.log("ERROR: model is not a valid option");
-    console.log("options: gpt-4, gpt-4-0314, gpt-4-32k, gpt-4-32k-0314, gpt-3.5-turbo, gpt-3.5-turbo-0301");
+    errorlog += ("ERROR: model is not a valid option");
+    errorlog += ("options: gpt-4, gpt-4-0314, gpt-4-32k, gpt-4-32k-0314, gpt-3.5-turbo, gpt-3.5-turbo-0301");
     abort = true;
   }
   
@@ -153,8 +155,10 @@ function callAPI(input, temperature, maxTokens, modelType, PARAMETERS, apiKey, o
 
     processCall();
     }else{
-      onEnd(" -- ERROR, INVALID PARAMETERS");
-      onData(" -- ERROR, INVALID PARAMETERS");
+      onEnd(" -- INVALID PARAMETERS | "+errorlog);
+      onData(" -- INVALID PARAMETERS | "+errorlog);
+
+      
     }
 }
 
