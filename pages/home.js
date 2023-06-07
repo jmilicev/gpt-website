@@ -75,8 +75,14 @@ export default function Home() {
 
 
     }
+
+    
   
     const handleSendClick = () => {
+
+        function scrollToBottom() {
+          textarea.scrollTop = textarea.scrollHeight;
+        }
 
         const apiKeyInput = document.querySelector('.api-key-input');
         const apikeytag = document.querySelector('.apilock');
@@ -88,11 +94,24 @@ export default function Home() {
             outputField.placeholder = "Loading ... ";
 
             const sendButton = document.querySelector('.send-button');
+            const sendButtonBottom = document.querySelector('.send-button-bottom');
+
             sendButton.style.backgroundColor = "gray";
             sendButton.disabled = true;
             sendButton.style.cursor = 'not-allowed';
+            sendButtonBottom.style.backgroundColor = "gray";
+            sendButtonBottom.disabled = true;
+            sendButtonBottom.style.cursor = 'not-allowed';
             
             setChatLog(chatlog+= "\n\nME: "+inputValue+"\n\n")
+
+            const textarea = document.querySelector('.chatlog');
+
+            // Function to scroll textarea to the bottom
+            function scrollToBottom() {
+              textarea.scrollTop = textarea.scrollHeight;
+            }
+
 
             const maxTokensInput = document.querySelector('.tokens-input');
             const temperatureSlider = document.querySelector('.range-input');
@@ -104,12 +123,11 @@ export default function Home() {
 
             call(inputValue, temperature, maxTokens, 'gpt-3.5-turbo','s', apiKey, onDataCallback, onEndCallback);
             
-            
-            
             var response = "";
             var clog = chatlog + "GPT: ";
             var chunkCharLength;
             function onDataCallback(output) {
+                scrollToBottom();
                 response+=output;
                 clog+=output;
                 setOutputText(response);
@@ -117,13 +135,23 @@ export default function Home() {
             }
         
             function onEndCallback() {
-               //setChatLog(chatlog+"\n\n");
+
+                const textarea = document.querySelector('.chatlog');
+                const chatlogValue = textarea.value;
+
+                const repair = chatlogValue.slice(0, -1);
+                setChatLog(repair);
 
                 //restore send button
                 const sendButton = document.querySelector('.send-button');
+                const sendButtonBottom = document.querySelector('.send-button-bottom');
+
                 sendButton.style.backgroundColor = "#007bff";
                 sendButton.disabled = false;
                 sendButton.style.cursor = 'pointer';
+                sendButtonBottom.style.backgroundColor = "#007bff";
+                sendButtonBottom.disabled = false;
+                sendButtonBottom.style.cursor = 'pointer';
                 
                 const outputField = document.querySelector('.output-field');
                 outputField.placeholder = "Output will show up here ...";
@@ -215,13 +243,27 @@ export default function Home() {
             placeholder="chatlog..."
         ></textarea>
 
+      <div className="bottom-input-container">
+          <textarea
+          id="bottominput"
+          className="input-field-bottom"
+          placeholder="Enter your text"
+          value={inputValue}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyDown} // Add this line
+          ></textarea>
+          <button className="send-button-bottom" onClick={handleSendClick}>Send</button>
+      </div>
         </div>
-  
+        <br></br>
         <footer className="footer">
           <p className="footer-text">Designed and developed by Jovan Milicev</p>
           <div className="social-icons">
             <a href="http://in.jovanmilicev.com/" target="_blank" rel="noopener noreferrer">
               <img src="/linkedin.svg" alt="Website" width={24} height={24} />
+            </a>
+            <a href="https://jovanmilicev.com" target="_blank" rel="noopener noreferrer">
+              <img src="/website.png" alt="Website" width={24} height={24} />
             </a>
             <a href="https://github.com/jmilicev" target="_blank" rel="noopener noreferrer">
               <img src="/github.svg" alt="GitHub" width={24} height={24} />

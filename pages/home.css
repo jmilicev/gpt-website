@@ -1,7 +1,7 @@
 /* home.css */
 
 body{
-  background-color: rgb(226, 222, 222);
+  background-color: rgb(223, 223, 223);
 }
 
 .chatlogcontainer{
@@ -12,6 +12,7 @@ body{
 .chatlog{
     height: 80%;
     width: 100%;
+    resize: none;
 }
 h1{
     margin-top: 0px;
@@ -156,6 +157,8 @@ label {
   padding: 10px;
   text-align: center;
   width: 100%;
+  margin-top: 50px;
+  position: relative;
 }
 
 .footer-text {
@@ -173,6 +176,32 @@ label {
 .social-icons img {
   width: 24px;
   height: 24px;
+}
+
+.button-group > *{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.input-field-bottom{
+  resize: none;
+  vertical-align: middle;
+  width: 75vw;
+  height: 5vh;
+  margin-bottom: 10px;
+}
+
+.send-button-bottom{
+  margin-top: 15px;
+  margin-left: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 0px;
+  vertical-align: middle;
 }
 
 .input-field{
@@ -195,8 +224,6 @@ label {
   }
 
 .output-field, .inputfield {
-
     resize: vertical; /* Allow vertical resizing */
     opacity: 0.8; /* Adjust the opacity to visually indicate it's disabled */
   }
-
