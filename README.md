@@ -2,7 +2,7 @@
 
 This is a React program that allows you to interact with Chat-GPT, an AI-powered language model, using a simple user interface. You can have conversations with the model and get responses based on the input you provide.
 
-You can try a live demo of this website at jovanmilicev.com/gpt-website
+You can try a live demo of this website at [jovanmilicev.com/gpt-website](https://jovanmilicev.com/gpt-website/)
 
 ## Prerequisites
 
