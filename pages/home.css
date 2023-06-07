@@ -1,5 +1,9 @@
 /* home.css */
 
+body{
+  background-color: rgb(226, 222, 222);
+}
+
 .chatlogcontainer{
     width: 90vw;;
     height: 70vh;
