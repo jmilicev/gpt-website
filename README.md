@@ -4,6 +4,8 @@ This is a React program that allows you to interact with Chat-GPT, an AI-powered
 
 You can try a live demo of this website at [jovanmilicev.com/gpt-website](https://jovanmilicev.com/gpt-website/)
 
+Internet functionality is still a work in progress.
+
 ## Prerequisites
 
 To run this program, you need to have the following installed:
