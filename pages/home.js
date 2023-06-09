@@ -260,13 +260,13 @@ export default function Home() {
           <p className="footer-text">Designed and developed by Jovan Milicev</p>
           <div className="social-icons">
             <a href="http://in.jovanmilicev.com/" target="_blank" rel="noopener noreferrer">
-              <img src="/linkedin.svg" alt="Website" width={24} height={24} />
+              <img src="/linkedin.svg" loading="lazy" alt="Website" width={24} height={24} />
             </a>
             <a href="https://jovanmilicev.com" target="_blank" rel="noopener noreferrer">
-              <img src="/website.png" alt="Website" width={24} height={24} />
+              <img src="/website.png" loading="lazy" alt="Website" width={24} height={24} />
             </a>
             <a href="https://github.com/jmilicev" target="_blank" rel="noopener noreferrer">
-              <img src="/github.svg" alt="GitHub" width={24} height={24} />
+              <img src="/github.svg" loading="lazy" alt="GitHub" width={24} height={24} />
             </a>
           </div>
         </footer>
