@@ -41,7 +41,7 @@ export default function Home() {
       .catch((error) => {
         console.error('Error copying text to clipboard:', error);
       });
-  }
+  };
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter' && !event.shiftKey) {
@@ -62,12 +62,12 @@ export default function Home() {
       apiKeyInput.value = '';
       apikeytag.textContent = '🔒';
     }
-  }
+  };
 
   const handleSendClick = () => {
     function scrollToBottom() {
       textarea.scrollTop = textarea.scrollHeight;
-    }
+    };
 
     const apiKeyInput = document.querySelector('.api-key-input');
     const apikeytag = document.querySelector('.apilock');
@@ -94,7 +94,7 @@ export default function Home() {
 
       function scrollToBottom() {
         textarea.scrollTop = textarea.scrollHeight;
-      }
+      };
 
       const maxTokensInput = document.querySelector('.tokens-input');
       const temperatureSlider = document.querySelector('.range-input');
@@ -104,7 +104,10 @@ export default function Home() {
       const temperature = parseFloat(temperatureSlider.value);
       console.log('top' + chatlog);
 
-      call(inputValue, temperature, maxTokens, 'gpt-3.5-turbo', 's', apiKey, onDataCallback, onEndCallback);
+      const inputElement = document.getElementById('model');
+      const model = inputElement.value;
+
+      call(inputValue, temperature, maxTokens, model, 's', apiKey, onDataCallback, onEndCallback);
 
       var response = '';
       var clog = chatlog + 'GPT: ';
@@ -116,7 +119,7 @@ export default function Home() {
         clog += output;
         setOutputText(response);
         setChatLog((clog) => clog + output);
-      }
+      };
 
       function onEndCallback() {
         const textarea = document.querySelector('.chatlog');
@@ -137,7 +140,7 @@ export default function Home() {
 
         const outputField = document.querySelector('.output-field');
         outputField.placeholder = 'Output will show up here ...';
-      }
+      };
     } else {
       setOutputText(
         'Please check openAI API key\n\nPlease ensure it is entered correctly and locked using the padlock.'
@@ -171,6 +174,19 @@ export default function Home() {
             />
           </div>
           <div className="settings-row">
+            <label>Model</label>
+            <select id="model" className="model-select">
+              <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
+              <option value="gpt-3.5-turbo-0613">gpt-3.5-turbo-0613</option>
+              <option value="gpt-3.5-turbo-16k">gpt-3.5-turbo-16k</option>
+              <option value="gpt-3.5-turbo-16k-0613">gpt-3.5-turbo-16k-0613</option>
+              <option value="gpt-4">gpt-4</option>
+              <option value="gpt-4-0613">gpt-4-0613</option>
+              <option value="gpt-4-32k">gpt-4-32k</option>
+              <option value="gpt-4-32k-0613">gpt-4-32k-0613</option>
+            </select>
+          </div>
+          <div className="settings-row">
             <label>OpenAI Key</label>
             <input type="password" className="api-key-input" />
             <button className="apilock" onClick={lockAPIkey}>
@@ -190,7 +206,7 @@ export default function Home() {
                 placeholder="Enter your text"
                 value={inputValue}
                 onChange={handleInputChange}
-                onKeyDown={handleKeyDown} // Add this line
+                onKeyDown={handleKeyDown}
               ></textarea>
               <br />
               <button className="send-button" onClick={handleSendClick}>
@@ -243,7 +259,7 @@ export default function Home() {
             placeholder="Enter your text"
             value={inputValue}
             onChange={handleInputChange}
-            onKeyDown={handleKeyDown} // Add this line
+            onKeyDown={handleKeyDown}
           ></textarea>
           <button className="send-button-bottom" onClick={handleSendClick}>
             Send
@@ -252,23 +268,18 @@ export default function Home() {
       </div>
       <br />
       <footer className="footer">
-  <p className="footer-text">Designed and developed by Jovan Milicev</p>
-  <div className="social-icons">
-    <a href="http://in.jovanmilicev.com/" target="_blank" rel="noopener noreferrer">
-      <Image src={linkedinImage} alt="LinkedIn" width={24} height={24} />
-    </a>
+        <p className="footer-text">Designed and developed by Jovan Milicev</p>
+        <div className="social-icons">
+          <a href="http://in.jovanmilicev.com/" target="_blank" rel="noopener noreferrer">
+            <Image src={linkedinImage} alt="LinkedIn" width={24} height={24} />
+          </a>
 
-    <a href="https://github.com/jmilicev" target="_blank" rel="noopener noreferrer">
-      <Image src={githubImage} alt="GitHub" width={24} height={24} />
-    </a>
-  </div>
-</footer>
-
-
-
-
-
-
+          <a href="https://github.com/jmilicev" target="_blank" rel="noopener noreferrer">
+            <Image src={githubImage} alt="GitHub" width={24} height={24} />
+          </a>
+        </div>
+      </footer>
     </main>
   );
 }
+
